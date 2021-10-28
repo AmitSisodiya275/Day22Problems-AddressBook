@@ -1,6 +1,7 @@
 package com.bridgelab.addressbook;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class MasterBook {
@@ -32,6 +33,11 @@ public class MasterBook {
 				addContactsInAddressBook();
 				break;
 			case 3: 
+			searchContactsByCityName();
+			break;
+			case 4: 
+			searchContactByStateName();
+			case 5: 
 				quite = true;
 			}
 		}
@@ -42,14 +48,27 @@ public class MasterBook {
 		System.out.println("Press : ");
 		System.out.println("\t 0 to Print these Choice Options again : ");
 		System.out.println("\t 1 to Add new Address Book to the Master Book : ");
-		System.out.println("\t 2 to Add contact in the Address Book : ");
-		System.out.println("\t 3 to Quite : ");
+		System.out.println("\t 2 to Add contact in the Existing Address Book : ");
+		System.out.println("\t 3 to search contact via city name : ");
+		System.out.println("\t 4 to search contact via state name : ");
+		System.out.println("\t 5 to Quite : ");
 	}
 
 	public void addAddressBook() {
 		System.out.println("Enter the Name of the City for which you want to add Address Book : ");
 		String cityName = scanner.nextLine();
 		masterBook.put(cityName, new AddressBook());
+		System.out.println("Address Book Added : ");
+		System.out.println("Would You like to add contact in this Address Book : ");
+		System.out.println("Press 1 to Add contact in this Address Book : ");
+		System.out.println("Press 2 to for the main menu : ");
+		int choice = scanner.nextInt();
+		scanner.nextLine();
+		if (choice == 1) {
+			masterBook.get(cityName).mainMenuAddressBook();
+		} else {
+			mainMenuMasterBook();
+		}
 	}
 	
 	public void addContactsInAddressBook() {
@@ -61,5 +80,20 @@ public class MasterBook {
 			masterBook.get(addressBookName).mainMenuAddressBook();
 		}
 	}
-
+	
+	public void searchContactsByCityName() {
+		System.out.println("Enter the name of the city : ");
+		String cityName = scanner.nextLine();
+		for (Map.Entry<String, AddressBook> entry : masterBook.entrySet()) {
+			entry.getValue().searchContactByCity(cityName);
+		}
+	}
+	
+	public void searchContactByStateName() {
+		System.out.println("Enter the name of State : ");
+		String stateName = scanner.nextLine();
+		for(Map.Entry<String, AddressBook> entry : masterBook.entrySet()) {
+			entry.getValue().searchContactByState(stateName);
+		}
+	}
 }

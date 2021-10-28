@@ -167,4 +167,12 @@ public class AddressBook {
 			}
 		}
 	}
+
+	public void searchContactByState(String stateName) {
+		person.stream().filter(p -> p.getState().equalsIgnoreCase(stateName)).forEach(System.out::println);
+	}
+	
+	public void searchContactByCity(String cityName) {
+		person.stream().filter(p -> p.getCity().equalsIgnoreCase(cityName)).forEach(System.out::println);
+	}
 }
