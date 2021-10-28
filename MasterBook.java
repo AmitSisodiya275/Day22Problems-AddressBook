@@ -8,41 +8,45 @@ public class MasterBook {
 
 	Scanner scanner = new Scanner(System.in);
 	HashMap<String, AddressBook> masterBook = new HashMap<>();
-	
-	public static void main(String [] args) {
+
+	public static void main(String[] args) {
 		MasterBook masterBook = new MasterBook();
 		masterBook.mainMenuMasterBook();
 	}
-	
+
 	public void mainMenuMasterBook() {
 		boolean quite = false;
 		int choice = 0;
 		printDetails();
-		while(!quite) {
+		while (!quite) {
 			System.out.println("Enter Your Choice : ");
 			choice = scanner.nextInt();
 			scanner.nextLine();
-			switch(choice) {
+			switch (choice) {
 			case 0:
 				printDetails();
 				break;
-			case 1: 
+			case 1:
 				addAddressBook();
 				break;
-			case 2: 
+			case 2:
 				addContactsInAddressBook();
 				break;
-			case 3: 
-			searchContactsByCityName();
-			break;
-			case 4: 
-			searchContactByStateName();
-			case 5: 
+			case 3:
+				searchContactsByCityName();
+				break;
+			case 4:
+				searchContactByStateName();
+				break;
+			case 5:
+				viewCountOfContactsFromSpecificCityName();
+				break;
+			case 6:
 				quite = true;
 			}
 		}
 	}
-	
+
 	public void printDetails() {
 		System.out.println("Welcome to the Master Book.");
 		System.out.println("Press : ");
@@ -51,7 +55,7 @@ public class MasterBook {
 		System.out.println("\t 2 to Add contact in the Existing Address Book : ");
 		System.out.println("\t 3 to search contact via city name : ");
 		System.out.println("\t 4 to search contact via state name : ");
-		System.out.println("\t 5 to Quite : ");
+		System.out.println("\t 5 to view how many contacts are from specific city : ");
 	}
 
 	public void addAddressBook() {
@@ -70,7 +74,7 @@ public class MasterBook {
 			mainMenuMasterBook();
 		}
 	}
-	
+
 	public void addContactsInAddressBook() {
 		System.out.println("Enter the name of address Book in which you want to add contact : ");
 		String addressBookName = scanner.nextLine();
@@ -80,7 +84,7 @@ public class MasterBook {
 			masterBook.get(addressBookName).mainMenuAddressBook();
 		}
 	}
-	
+
 	public void searchContactsByCityName() {
 		System.out.println("Enter the name of the city : ");
 		String cityName = scanner.nextLine();
@@ -88,12 +92,37 @@ public class MasterBook {
 			entry.getValue().searchContactByCity(cityName);
 		}
 	}
-	
+
 	public void searchContactByStateName() {
 		System.out.println("Enter the name of State : ");
 		String stateName = scanner.nextLine();
-		for(Map.Entry<String, AddressBook> entry : masterBook.entrySet()) {
+		for (Map.Entry<String, AddressBook> entry : masterBook.entrySet()) {
 			entry.getValue().searchContactByState(stateName);
 		}
+	}
+
+	public void viewCountOfContactsFromSpecificCityName() {
+		long totalCount = 0;
+		long count = 0;
+		System.out.println("Enter the name of the City : ");
+		String cityName = scanner.nextLine();
+		for (Map.Entry<String, AddressBook> entry : masterBook.entrySet()) {
+			count = entry.getValue().viewCountOfContactsFromSpecificCity(cityName);
+			totalCount += count;
+		}
+		System.out.println("Total contacts from " + cityName + " city is " + totalCount);
+	}
+	
+	public void viewCountOfContactFromSpecificStateName() {
+		long totalCount = 0;
+		long count = 0;
+		System.out.println("Enter the name of the State : ");
+		String stateName = scanner.nextLine();
+		for (Map.Entry<String, AddressBook> entry : masterBook.entrySet()) {
+			count = entry.getValue().viewCountOfContactsFromSpecificCity(stateName);
+			totalCount += count;
+		}
+		System.out.println("Total contacts from " + stateName + " state is " + totalCount);
+	
 	}
 }

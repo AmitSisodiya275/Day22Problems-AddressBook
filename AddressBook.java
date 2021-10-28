@@ -175,4 +175,12 @@ public class AddressBook {
 	public void searchContactByCity(String cityName) {
 		person.stream().filter(p -> p.getCity().equalsIgnoreCase(cityName)).forEach(System.out::println);
 	}
+	
+	public long viewCountOfContactsFromSpecificCity(String cityName) {
+		return person.stream().filter(p -> p.getCity().equalsIgnoreCase(cityName)).count();
+	}
+	
+	public long viewCountOfContactsFromSpecificState(String stateName) {
+		return person.stream().filter(p -> p.getState().equalsIgnoreCase(stateName)).count();
+	}
 }
