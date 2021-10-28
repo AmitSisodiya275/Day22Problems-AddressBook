@@ -7,7 +7,6 @@ public class AddressBook {
 	Scanner scanner = new Scanner(System.in);
 	ArrayList<Contact> person = new ArrayList<>();
 
-	
 	public void mainMenuAddressBook() {
 
 		boolean quite = false;
@@ -60,6 +59,10 @@ public class AddressBook {
 
 		System.out.println("Enter First Name : ");
 		String fName = scanner.nextLine();
+		if (person.stream().anyMatch(n -> n.getFirstName().equals(fName))) {
+			System.out.println("Person Details already present, You can't add details of same person.");
+			mainMenuAddressBook();
+		}
 		System.out.println("Enter Last Name : ");
 		String lName = scanner.nextLine();
 		System.out.println("Enter your City : ");
